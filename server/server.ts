@@ -4,7 +4,9 @@ import express, {Request,Response} from 'express';
 const app = express();
 const port = process.env.PORT || 3000;
 
+
 app.use(express.json());
+app.use(express.urlencoded({ extended: false }));
 
 // Example route to handle JSON data
 app.post('/api/data', (req, res) => {
@@ -20,16 +22,26 @@ app.listen(port, () => {
   console.log(`Server is running on port ${port}`);
 });
 
+
+
 interface Post{
-    
+    title:string
+    date:string
+    author:string
+    context:string
+    id:number
 }
 
 interface Board{
-
+    name:string
+    id:number
+    posts:Post[]
 }
 
 
 const controller={
+
+    
 
     getBoards:function(){},
     getBoard:function(boardId:number){},
