@@ -26,21 +26,17 @@ app.listen(port, () => {
 
 interface Post{
     title:string
-    date:string
     author:string
     context:string
-    id:number
 }
 
 interface Board{
     name:string
-    id:number
-    posts:Post[]
 }
 
 
 const controller={
-
+    boardCnt:1,
     
 
     getBoards:function(){},
