@@ -20,8 +20,32 @@ app.listen(port, () => {
   console.log(`Server is running on port ${port}`);
 });
 
+interface Post{
+    
+}
+
+interface Board{
+
+}
 
 
+const controller={
+
+    getBoards:function(){},
+    getBoard:function(boardId:number){},
+    getPosts:function(){},
+    getPost:function(boardId:number,postId:number){},
+    
+    createBoard:function(board:Board){},
+    createPost:function(post:Post){},
+
+    editBoard:function(boardId:number){},
+    editPost:function(boardId:number,postId:number){},
+
+    deleteBoard:function(boardId:number){},
+    deletePost:function(boardId:number,postId:number){},
+
+}
 
 
 //게시판 목록 조회
