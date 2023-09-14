@@ -100,35 +100,38 @@ export default class Board{
     }
 
     deletePost(id:number):boolean{
-        let post=this.findPostById(id);
-        if(post!==undefined){
-            const index=this.getPostIndex(post);
+        const index=this.posts.findIndex(obj=>obj.id===id);
 
-            if(index!==-1){
-                this.posts.splice(index,1);
-                console.log(id+" 게시글 삭제 완료")
-            }else{
-                console.log(id+"에 해당하는 게시글이 존재하지 않습니다.")
-                return false;
-            };
-
-            return true
+        if(index){
+            this.posts.splice(index,1);
+            return true;
         }else{
-            console.log(id+"에 해당하는 게시글이 존재하지 않습니다.")
-            return false
+            return false;
         }
+        
+
+        // let post=this.findPostById(id);
+        
+        
+        // if(post!==undefined){//첫 if는 긍정
+        //     const index=this.getPostIndex(post);
+
+        //     if(index!==-1){
+        //         this.posts.splice(index,1);
+        //         console.log(id+" 게시글 삭제 완료")
+        //     }else{
+        //         console.log(id+"에 해당하는 게시글이 존재하지 않습니다.")
+        //         return false;
+        //     };
+
+        //     return true
+        // }else{
+        //     console.log(id+"에 해당하는 게시글이 존재하지 않습니다.")
+        //     return false
+        // }
 
     }
 
-    private getPostIndex(post:Post):number{
-        const index=this.posts.indexOf(post);
-        if(index!==-1){
-            return index;
-        }else{
-            console.log("해당 포스트의 인덱스를 찾을 수 없습니다 : "+post);    
-            return -1
-        }
-    }
 
 
     editBoard(name:string):boolean{

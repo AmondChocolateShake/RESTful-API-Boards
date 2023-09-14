@@ -44,7 +44,7 @@ const controller={
 
     getBoardList:function(){
         let arr=[];
-        for(let el of this.boards){
+        for(let el of this.boards){//foreach
             arr.push({name:el.name,id:el.id});
         }
         return arr;
@@ -111,6 +111,8 @@ const controller={
             return false;
         }
     },
+
+
     deletePost:function(boardId:number,postId:number):boolean{
         const board=this.getBoard(boardId);
         if(board!==undefined){
