@@ -39,20 +39,17 @@ class Board {
     //id로 게시글 찾기
     findPostById(id) {
         const post = this.posts.find(obj => obj.id === id);
-        if (post !== undefined)
-            return post;
-        else
-            return undefined;
+        return post;
     }
     //id를 이용해 Post클래스 객체를 찾고 반환하는 함수
     getPostById(id) {
         const post = this.findPostById(id);
-        if (post === undefined) {
-            console.log("failed to search post data by" + id);
-            return undefined;
+        if (post) {
+            return post;
         }
         else {
-            return post;
+            console.log("failed to search post data by" + id);
+            return undefined;
         }
     }
     getPosts() {
@@ -74,34 +71,30 @@ class Board {
         }
     }
     deletePost(id) {
-        let post = this.findPostById(id);
-        if (post !== undefined) {
-            const index = this.getPostIndex(post);
-            if (index !== -1) {
-                this.posts.splice(index, 1);
-                console.log(id + " 게시글 삭제 완료");
-            }
-            else {
-                console.log(id + "에 해당하는 게시글이 존재하지 않습니다.");
-                return false;
-            }
-            ;
+        const index = this.posts.findIndex(obj => obj.id === id);
+        console.log("인덱스 번호 : " + index);
+        if (index > -1) {
+            this.posts.splice(index, 1);
             return true;
         }
         else {
-            console.log(id + "에 해당하는 게시글이 존재하지 않습니다.");
             return false;
         }
-    }
-    getPostIndex(post) {
-        const index = this.posts.indexOf(post);
-        if (index !== -1) {
-            return index;
-        }
-        else {
-            console.log("해당 포스트의 인덱스를 찾을 수 없습니다 : " + post);
-            return -1;
-        }
+        // let post=this.findPostById(id);
+        // if(post!==undefined){//첫 if는 긍정
+        //     const index=this.getPostIndex(post);
+        //     if(index!==-1){
+        //         this.posts.splice(index,1);
+        //         console.log(id+" 게시글 삭제 완료")
+        //     }else{
+        //         console.log(id+"에 해당하는 게시글이 존재하지 않습니다.")
+        //         return false;
+        //     };
+        //     return true
+        // }else{
+        //     console.log(id+"에 해당하는 게시글이 존재하지 않습니다.")
+        //     return false
+        // }
     }
     editBoard(name) {
         this.name = name;

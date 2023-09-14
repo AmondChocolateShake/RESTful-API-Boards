@@ -27,11 +27,7 @@ const controller = {
         return this.boardId++;
     },
     getBoardList: function () {
-        let arr = [];
-        for (let el of this.boards) {
-            arr.push({ name: el.name, id: el.id });
-        }
-        return arr;
+        return this.boards;
     },
     getBoards: function () {
         return this.boards;
@@ -71,7 +67,7 @@ const controller = {
     },
     editPost: function (boardId, postId, postForm) {
         const board = this.getBoard(boardId);
-        if (board !== undefined) {
+        if (board) {
             board.editPost(postId, postForm.title, postForm.author, postForm.context);
             return true;
         }
@@ -80,24 +76,30 @@ const controller = {
         }
     },
     deleteBoard: function (boardId) {
-        const board = this.getBoard(boardId);
-        if (board !== undefined) {
-            const index = this.boards.indexOf(board);
-            if (index !== -1) {
-                this.boards.splice(index, 1);
-                return true;
-            }
-            else {
-                return false;
-            }
+        const index = this.boards.findIndex(obj => obj.id === boardId);
+        if (index) {
+            this.boards.splice(index, 1);
+            return true;
         }
         else {
             return false;
         }
+        // if(board!==undefined){
+        //     const index=this.boards.indexOf(board);
+        //     if(index!==-1){
+        //         this.boards.splice(index,1);
+        //         return true;
+        //     }else{
+        //         return false;
+        //     }
+        // }else{
+        //     return false;
+        // }
     },
     deletePost: function (boardId, postId) {
         const board = this.getBoard(boardId);
-        if (board !== undefined) {
+        // console.log(board);
+        if (board) {
             if (board.deletePost(postId)) {
                 return true;
             }
@@ -114,7 +116,7 @@ const controller = {
 app.get('/board', (req, res) => {
     const boards = controller.getBoardList();
     // console.log(boards);
-    if (boards !== undefined) {
+    if (boards) {
         res.status(200).json({
             boardList: boards
         });
@@ -130,7 +132,7 @@ app.get('/board', (req, res) => {
 app.get('/board/:id', (req, res) => {
     const id = parseInt(req.params.id);
     const board = controller.getBoard(id);
-    if (board !== undefined) {
+    if (board) {
         res.status(200).json({
             name: board.name,
             id: board.id
@@ -149,7 +151,7 @@ app.get('/board/:id/post', (req, res) => {
     const board = controller.getBoard(id);
     const posts = controller.getPosts(id);
     console.log(posts);
-    if (board !== undefined && posts !== undefined) {
+    if (board && posts) {
         res.status(200).json({
             board: {
                 name: board.name,
@@ -167,7 +169,7 @@ app.get('/board/:boardId/post/:postId', (req, res) => {
     const boardId = parseInt(req.params.boardId);
     const postId = parseInt(req.params.postId);
     const post = controller.getPost(boardId, postId);
-    if (post !== undefined) {
+    if (post) {
         res.status(200).json({
             title: post.title,
             date: post.date,

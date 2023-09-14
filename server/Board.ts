@@ -99,8 +99,9 @@ export default class Board{
 
     deletePost(id:number):boolean{
         const index=this.posts.findIndex(obj=>obj.id===id);
+        console.log("인덱스 번호 : "+index);
 
-        if(index){
+        if(index>-1){
             this.posts.splice(index,1);
             return true;
         }else{

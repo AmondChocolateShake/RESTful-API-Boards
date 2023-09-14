@@ -119,6 +119,7 @@ const controller={
 
     deletePost: function(boardId: number,postId: number): boolean {
         const board= this.getBoard(boardId);
+        // console.log(board);
         if(board){
             if(board.deletePost(postId)){
                 return true
