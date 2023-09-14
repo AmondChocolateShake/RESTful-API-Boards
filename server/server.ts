@@ -196,33 +196,33 @@ app.get('/board/:boardId/post/:postId', (req: Request, res: Response) => {
 
     if(post){
         res.status(200).json({
-            title:post.title,
-            date:post.date,
-            author:post.author,
-            context:post.context,
-            id:post.id
+            title: post.title,
+            date: post.date,
+            author: post.author,
+            context: post.context,
+            id: post.id
         })
     }else{
         res.status(400).json({
-            status:"failed",
-            message:"조회에 실패했습니다."
+            status: "failed",
+            message: "조회에 실패했습니다."
         })
     }
 
 })
 
 // 게시판 생성
-app.post('/board',(req:Request,res:Response)=>{
-    const boardName=req.body.name
+app.post('/board',(req: Request, res: Response) => {
+    const boardName= req.body.name
     if(controller.createBoard(boardName)){
         res.status(201).json({
-            status:"successed",
-            message:"게시판 생성에 성공했습니다."
+            status: "successed",
+            message: "게시판 생성에 성공했습니다."
         })
     }else{
         res.status(500).json({
-            status:"failed",
-            message:"게시판 생성에 실패했습니다."
+            status: "failed",
+            message: "게시판 생성에 실패했습니다."
         })
     }
 
@@ -230,22 +230,22 @@ app.post('/board',(req:Request,res:Response)=>{
 })
 
 // 게시글 생성
-app.post('/board/:id/post',(req:Request,res:Response)=>{
-    const id=parseInt(req.params.id);
+app.post('/board/:id/post',(req: Request, res: Response) => {
+    const id= parseInt(req.params.id);
     const postForm={
-        title:req.body.title,
-        context:req.body.context,
-        author:"김동주"
+        title: req.body.title,
+        context: req.body.context,
+        author: "김동주"
     }
-    if(controller.createPost(id,postForm)){
+    if(controller.createPost(id, postForm)){
         res.status(201).json({
-            status:"successed",
-            message:"게시판 생성에 성공했습니다."
+            status: "successed",
+            message: "게시판 생성에 성공했습니다."
         })
     }else{
         res.status(500).json({
-            status:"failed",
-            message:"게시판 생성에 실패했습니다."
+            status: "failed",
+            message: "게시판 생성에 실패했습니다."
         })
     };
 
@@ -254,42 +254,42 @@ app.post('/board/:id/post',(req:Request,res:Response)=>{
 
 
 // 게시판 수정
-app.put('/board/:id',(req:Request,res:Response)=>{
-    const id=parseInt(req.params.id);
-    const boardName=req.body.name;
-    if(controller.editBoard(id,boardName)){
+app.put('/board/:id', (req: Request, res: Response) => {
+    const id= parseInt(req.params.id);
+    const boardName= req.body.name;
+    if(controller.editBoard(id, boardName)) {
         res.status(201).json({
-            status:"successed",
-            message:"게시판 수정에 성공했습니다."
+            status: "successed",
+            message: "게시판 수정에 성공했습니다."
         })
     }else{
         res.status(500).json({
-            status:"failed",
-            message:"게시판 수정에 실패했습니다."
+            status: "failed",
+            message: "게시판 수정에 실패했습니다."
         })
     }
 
 })
 
 // 게시글 수정
-app.put('/board/:boardId/post/:postId',(req:Request,res:Response)=>{
-    const boardId=parseInt(req.params.boardId);
-    const postId=parseInt(req.params.postId);
-    const postForm={
-        title:req.body.title,
-        context:req.body.context,
-        author:"김동주"
+app.put('/board/:boardId/post/:postId', (req: Request, res: Response) => {
+    const boardId= parseInt(req.params.boardId);
+    const postId= parseInt(req.params.postId);
+    const postForm= {
+        title: req.body.title,
+        context: req.body.context,
+        author: "김동주"
     }
 
-    if(controller.editPost(boardId,postId,postForm)){
+    if(controller.editPost(boardId, postId, postForm)) {
         res.status(201).json({
-            status:"successed",
-            message:"게시글 수정에 성공했습니다."
+            status: "successed",
+            message: "게시글 수정에 성공했습니다."
         })
     }else{
         res.status(500).json({
-            status:"failed",
-            message:"게시판 수정에 실패했습니다."
+            status: "failed",
+            message: "게시판 수정에 실패했습니다."
         })
     }
 
@@ -297,36 +297,36 @@ app.put('/board/:boardId/post/:postId',(req:Request,res:Response)=>{
 
 
 // 게시판 삭제
-app.delete('/board/:id',(req:Request,res:Response)=>{
-    const id=parseInt(req.params.id);
+app.delete('/board/:id', (req: Request, res: Response) => {
+    const id= parseInt(req.params.id);
     if(controller.deleteBoard(id)){
         res.status(201).json({
-            status:"successed",
-            message:"게시판 삭제에 성공했습니다."
+            status: "successed",
+            message: "게시판 삭제에 성공했습니다."
         })
     }else{
         res.status(500).json({
-            status:"failed",
-            message:"게시판 삭제에 실패했습니다."
+            status: "failed",
+            message: "게시판 삭제에 실패했습니다."
         })
     }
 })
 
 // 게시글 삭제
-app.delete('/board/:boardId/post/:postId',(req:Request,res:Response)=>{
-    const boardId=parseInt(req.params.boardId);
-    const postId=parseInt(req.params.postId);
+app.delete('/board/:boardId/post/:postId', (req: Request, res: Response) => {
+    const boardId= parseInt(req.params.boardId);
+    const postId= parseInt(req.params.postId);
 
-    if(controller.deletePost(boardId,postId)){
+    if(controller.deletePost(boardId, postId)){
         res.status(201).json({
-            status:"successed",
-            message:"게시글 삭제에 성공했습니다."
+            status: "successed",
+            message: "게시글 삭제에 성공했습니다."
         })
 
     }else{
         res.status(500).json({
-            status:"failed",
-            message:"게시글 삭제에 실패했습니다."
+            status: "failed",
+            message: "게시글 삭제에 실패했습니다."
         })
     }
 
