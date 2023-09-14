@@ -96,7 +96,7 @@ const controller={
 
     deleteBoard:function(boardId: number){
         const index= this.boards.findIndex(obj=> obj.id=== boardId);
-        if(index){
+        if(index>-1){
             this.boards.splice(index, 1);
             return true;
         }else{
