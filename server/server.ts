@@ -53,7 +53,11 @@ const controller={
         const board=this.getBoard(boardId);
         return board?.getPosts;
     },
-    getPost:function(boardId:number,postId:number){},
+    getPost:function(boardId:number,postId:number){
+        const board=this.getBoard(boardId);
+        const post=board?.getPostById(postId);
+        return post;
+    },
     
     createBoard:function(board:BoardIF):boolean{
         const newBoard=new Board(board.name,this.getBoardId());
@@ -61,20 +65,58 @@ const controller={
         return true
     },
     createPost:function(boardId:number,post:PostIF){
-
+        const board=this.getBoard(boardId);
+        board?.addNewPost(post.title,post.author,post.context)
+        return true;
     },
 
-    editBoard:function(boardId:number){},
-    editPost:function(boardId:number,postId:number){},
+    editBoard:function(boardId:number,boardForm:BoardIF){
+        const board=this.getBoard(boardId);
+        if(board!==undefined){
+            board?.editBoard(boardForm.name);
+            return true;
+        }else{
+            return false;
+        }
+    },
+    editPost:function(boardId:number,postId:number,postForm:PostIF){
+        const board=this.getBoard(boardId);
+        if(board!==undefined){
+            board.editPost(postId,postForm.title,postForm.author,postForm.context);
+            return true;
+        }else{
+            return false;
+        }
+    },
 
-    deleteBoard:function(boardId:number){},
-    deletePost:function(boardId:number,postId:number){},
+    deleteBoard:function(boardId:number){
+        const board=this.getBoard(boardId);
+        if(board!==undefined){
+            const index=this.boards.indexOf(board);
+            if(index!==-1){
+                this.boards.splice(index,1);
+                return true;
+            }else{
+                return false;
+            }
+        }else{
+            return false;
+        }
+    },
+    deletePost:function(boardId:number,postId:number){
+        const board=this.getBoard(boardId);
+        board?.deletePost(postId);
+    },
 
 }
 
 
 //게시판 목록 조회
-app.get('/board',(req:Request,res:Request)=>{
+app.get('/board',(req:Request,res:Response)=>{
+    const boards=controller.getBoards;
+    if(boards!==undefined){
+        res.status(200).
+    }
 
 })
 

@@ -28,7 +28,7 @@ class Post{
     
 }
 
-
+//게시판 클래스
 export default class Board{
     name:string;
     id:number;
@@ -131,7 +131,10 @@ export default class Board{
     }
 
 
-
+    editBoard(name:string):boolean{
+        this.name=name;
+        return true
+    }
 
 
 
