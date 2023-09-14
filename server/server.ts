@@ -36,8 +36,11 @@ interface Board{
 
 
 const controller={
-    boardCnt:1,
+    boardId:1,
     
+    searchDataById:function(){
+        
+    }
 
     getBoards:function(){},
     getBoard:function(boardId:number){},
