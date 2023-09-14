@@ -103,9 +103,17 @@ const controller={
             return false;
         }
     },
-    deletePost:function(boardId:number,postId:number){
+    deletePost:function(boardId:number,postId:number):boolean{
         const board=this.getBoard(boardId);
-        board?.deletePost(postId);
+        if(board!==undefined){
+            if(board.deletePost(postId)){
+                return true
+            }else{
+                return false
+            }
+        }else{
+            return false
+        }
     },
 
 }
@@ -204,28 +212,104 @@ app.post('/board',(req:Request,res:Response)=>{
 
 // 게시글 생성
 app.post('/board/:id/post',(req:Request,res:Response)=>{
+    const id=parseInt(req.params.id);
+    const postForm={
+        title:req.body.title,
+        context:req.body.context,
+        author:"김동주"
+    }
+    if(controller.createPost(id,postForm)){
+        res.status(201).json({
+            status:"successed",
+            message:"게시판 생성에 성공했습니다."
+        })
+    }else{
+        res.status(500).json({
+            status:"failed",
+            message:"게시판 생성에 실패했습니다."
+        })
+    };
+
 
 })
 
 
 // 게시판 수정
 app.put('/board/:id',(req:Request,res:Response)=>{
+    const id=parseInt(req.params.id);
+    const boardName=req.body.name;
+    if(controller.editBoard(id,boardName)){
+        res.status(201).json({
+            status:"successed",
+            message:"게시판 수정에 성공했습니다."
+        })
+    }else{
+        res.status(500).json({
+            status:"failed",
+            message:"게시판 수정에 실패했습니다."
+        })
+    }
 
 })
 
 // 게시글 수정
-app.put('/board/:id/post/:id',(req:Request,res:Response)=>{
+app.put('/board/:boardId/post/:id',(req:Request,res:Response)=>{
+    const boardId=parseInt(req.params.boardId);
+    const postId=parseInt(req.params.postId);
+    const postForm={
+        title:req.body.title,
+        context:req.body.context,
+        author:"김동주"
+    }
+
+    if(controller.editPost(boardId,postId,postForm)){
+        res.status(201).json({
+            status:"successed",
+            message:"게시글 수정에 성공했습니다."
+        })
+    }else{
+        res.status(500).json({
+            status:"failed",
+            message:"게시판 수정에 실패했습니다."
+        })
+    }
 
 })
 
 
 // 게시판 삭제
 app.delete('/board/:id',(req:Request,res:Response)=>{
-
+    const id=parseInt(req.params.id);
+    if(controller.deleteBoard(id)){
+        res.status(201).json({
+            status:"successed",
+            message:"게시판 삭제에 성공했습니다."
+        })
+    }else{
+        res.status(500).json({
+            status:"failed",
+            message:"게시판 삭제에 실패했습니다."
+        })
+    }
 })
 
 // 게시글 삭제
 app.delete('/board/:id/post/:id',(req:Request,res:Response)=>{
+    const boardId=parseInt(req.params.boardId);
+    const postId=parseInt(req.params.postId);
+
+    if(controller.deletePost(boardId,postId)){
+        res.status(201).json({
+            status:"successed",
+            message:"게시글 삭제에 성공했습니다."
+        })
+
+    }else{
+        res.status(500).json({
+            status:"failed",
+            message:"게시글 삭제에 실패했습니다."
+        })
+    }
 
 })
 
