@@ -1,5 +1,5 @@
 import express, {Request,Response} from 'express';
-
+import Board from './Board'
 
 const app = express();
 const port = process.env.PORT || 3000;
@@ -24,31 +24,45 @@ app.listen(port, () => {
 
 
 
-interface Post{
+interface PostIF{
     title:string
     author:string
     context:string
 }
 
-interface Board{
+interface BoardIF{
     name:string
 }
 
-
+const testBoard=new Board("테스트",0);
 const controller={
     boardId:1,
-    
-    searchDataById:function(){
-        
-    }
+    boards:[testBoard],
+    getBoardId:function(){
+        return this.boardId++;
+    },
 
-    getBoards:function(){},
-    getBoard:function(boardId:number){},
-    getPosts:function(){},
+    getBoards:function(){
+        return this.boards;
+    },
+    getBoard:function(boardId:number):Board | undefined{
+        const board=this.boards.find(obj=>obj.id===boardId);
+        return board;
+    },
+    getPosts:function(boardId:number){
+        const board=this.getBoard(boardId);
+        return board?.getPosts;
+    },
     getPost:function(boardId:number,postId:number){},
     
-    createBoard:function(board:Board){},
-    createPost:function(post:Post){},
+    createBoard:function(board:BoardIF):boolean{
+        const newBoard=new Board(board.name,this.getBoardId());
+        this.boards.push(newBoard);
+        return true
+    },
+    createPost:function(boardId:number,post:PostIF){
+
+    },
 
     editBoard:function(boardId:number){},
     editPost:function(boardId:number,postId:number){},

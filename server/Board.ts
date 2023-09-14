@@ -83,6 +83,7 @@ export default class Board{
         return this.posts;
     }
 
+    //게시글 수정 함수. (수정 성공시 true / 실패시 false)
     editPost(id:number,title:string,author:string,context:string):boolean{
         const post=this.findPostById(id);
 
@@ -96,8 +97,42 @@ export default class Board{
             console.log(id+"에 해당하는 게시글이 존재하지 않습니다.")
             return false
         }
+    }
+
+    deletePost(id:number):boolean{
+        let post=this.findPostById(id);
+        if(post!==undefined){
+            const index=this.getPostIndex(post);
+
+            if(index!==-1){
+                this.posts.splice(index,1);
+                console.log(id+" 게시글 삭제 완료")
+            }else{
+                console.log(id+"에 해당하는 게시글이 존재하지 않습니다.")
+                return false;
+            };
+
+            return true
+        }else{
+            console.log(id+"에 해당하는 게시글이 존재하지 않습니다.")
+            return false
+        }
 
     }
+
+    private getPostIndex(post:Post):number{
+        const index=this.posts.indexOf(post);
+        if(index!==-1){
+            return index;
+        }else{
+            console.log("해당 포스트의 인덱스를 찾을 수 없습니다 : "+post);    
+            return -1
+        }
+    }
+
+
+
+
 
 
 }
