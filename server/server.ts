@@ -42,6 +42,14 @@ const controller={
         return this.boardId++;
     },
 
+    getBoardList:function(){
+        let arr=[];
+        for(let el of this.boards){
+            arr.push({name:el.name,id:el.id});
+        }
+        return arr;
+    },
+
     getBoards:function(){
         return this.boards;
     },
@@ -51,7 +59,7 @@ const controller={
     },
     getPosts:function(boardId:number){
         const board=this.getBoard(boardId);
-        return board?.getPosts;
+        return board?.getPosts();
     },
     getPost:function(boardId:number,postId:number){
         const board=this.getBoard(boardId);
@@ -59,8 +67,8 @@ const controller={
         return post;
     },
     
-    createBoard:function(board:BoardIF):boolean{
-        const newBoard=new Board(board.name,this.getBoardId());
+    createBoard:function(board:string):boolean{
+        const newBoard=new Board(board,this.getBoardId());
         this.boards.push(newBoard);
         return true
     },
@@ -70,10 +78,10 @@ const controller={
         return true;
     },
 
-    editBoard:function(boardId:number,boardForm:BoardIF){
+    editBoard:function(boardId:number,name:string){
         const board=this.getBoard(boardId);
         if(board!==undefined){
-            board?.editBoard(boardForm.name);
+            board?.editBoard(name);
             return true;
         }else{
             return false;
@@ -121,7 +129,8 @@ const controller={
 
 //게시판 목록 조회
 app.get('/board',(req:Request,res:Response)=>{
-    const boards=controller.getBoards;
+    const boards=controller.getBoardList();
+    // console.log(boards);
     if(boards!==undefined){
         res.status(200).json({
             boardList:boards
@@ -158,6 +167,7 @@ app.get('/board/:id/post',(req:Request,res:Response)=>{
     const id =parseInt(req.params.id);
     const board=controller.getBoard(id);
     const posts=controller.getPosts(id);
+    console.log(posts);
     if(board!==undefined&&posts!==undefined){
         res.status(200).json({
             board:{
@@ -187,7 +197,10 @@ app.get('/board/:boardId/post/:postId',(req:Request,res:Response)=>{
             id:post.id
         })
     }else{
-        res.status(400)
+        res.status(400).json({
+            status:"failed",
+            message:"조회에 실패했습니다."
+        })
     }
 
 })
@@ -253,7 +266,7 @@ app.put('/board/:id',(req:Request,res:Response)=>{
 })
 
 // 게시글 수정
-app.put('/board/:boardId/post/:id',(req:Request,res:Response)=>{
+app.put('/board/:boardId/post/:postId',(req:Request,res:Response)=>{
     const boardId=parseInt(req.params.boardId);
     const postId=parseInt(req.params.postId);
     const postForm={
@@ -294,7 +307,7 @@ app.delete('/board/:id',(req:Request,res:Response)=>{
 })
 
 // 게시글 삭제
-app.delete('/board/:id/post/:id',(req:Request,res:Response)=>{
+app.delete('/board/:boardId/post/:postId',(req:Request,res:Response)=>{
     const boardId=parseInt(req.params.boardId);
     const postId=parseInt(req.params.postId);
 
