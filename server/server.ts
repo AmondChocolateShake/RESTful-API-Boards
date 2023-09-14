@@ -71,8 +71,12 @@ const controller={
     },
     createPost: function(boardId: number,post: PostIF) {
         const board=this.getBoard(boardId);
-        board?.addNewPost(post.title,post.author,post.context)
-        return true;
+        if(board){
+            board?.addNewPost(post.title,post.author,post.context)
+            return true;
+        }else{
+            return false;
+        }
     },
 
     editBoard: function(boardId: number,name: string) {
@@ -143,7 +147,7 @@ app.get('/board',(req: Request,res: Response) => {
             boardList:boards
         })
     }else{
-        res.status(500).json({
+        res.status(404).json({
             status:"failed",
             message:"게시판을 찾을 수 없습니다."
         })
@@ -161,7 +165,7 @@ app.get('/board/:id',(req: Request,res: Response) => {
             id: board.id
         })
     }else{
-        res.status(400).json({
+        res.status(404).json({
             status: "failed",
             message: "해당 게시판을 찾을 수 없습니다."
         })
@@ -184,7 +188,10 @@ app.get('/board/:id/post',(req: Request,res: Response) => {
             posts: posts
         })
     }else{
-        res.status(400)
+        res.status(404).json({
+            status:"failed",
+            message:"게시글을 찾을 수 없습니다."
+        })
     }
 })
 
@@ -204,7 +211,7 @@ app.get('/board/:boardId/post/:postId', (req: Request, res: Response) => {
             id: post.id
         })
     }else{
-        res.status(400).json({
+        res.status(404).json({
             status: "failed",
             message: "조회에 실패했습니다."
         })

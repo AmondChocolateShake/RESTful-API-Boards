@@ -52,8 +52,13 @@ const controller = {
     },
     createPost: function (boardId, post) {
         const board = this.getBoard(boardId);
-        board === null || board === void 0 ? void 0 : board.addNewPost(post.title, post.author, post.context);
-        return true;
+        if (board) {
+            board === null || board === void 0 ? void 0 : board.addNewPost(post.title, post.author, post.context);
+            return true;
+        }
+        else {
+            return false;
+        }
     },
     editBoard: function (boardId, name) {
         const board = this.getBoard(boardId);
@@ -77,7 +82,7 @@ const controller = {
     },
     deleteBoard: function (boardId) {
         const index = this.boards.findIndex(obj => obj.id === boardId);
-        if (index) {
+        if (index > -1) {
             this.boards.splice(index, 1);
             return true;
         }
@@ -122,7 +127,7 @@ app.get('/board', (req, res) => {
         });
     }
     else {
-        res.status(500).json({
+        res.status(404).json({
             status: "failed",
             message: "게시판을 찾을 수 없습니다."
         });
@@ -139,7 +144,7 @@ app.get('/board/:id', (req, res) => {
         });
     }
     else {
-        res.status(400).json({
+        res.status(404).json({
             status: "failed",
             message: "해당 게시판을 찾을 수 없습니다."
         });
@@ -161,7 +166,10 @@ app.get('/board/:id/post', (req, res) => {
         });
     }
     else {
-        res.status(400);
+        res.status(404).json({
+            status: "failed",
+            message: "게시글을 찾을 수 없습니다."
+        });
     }
 });
 // 게시판 내 특정 게시글 조회
@@ -179,7 +187,7 @@ app.get('/board/:boardId/post/:postId', (req, res) => {
         });
     }
     else {
-        res.status(400).json({
+        res.status(404).json({
             status: "failed",
             message: "조회에 실패했습니다."
         });
