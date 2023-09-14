@@ -18,14 +18,13 @@ class Post{
     author:string;
     context:string;
     id:number;
-    constructor(title:string,author:string,context:string,id:number){
+    constructor(title:string,author:string,context:string,id:number){//다 필수야? 라는 질문을 계속 던지길 바람
         this.title=title;
         this.date=getDateToday();
         this.author=author;
         this.context=context;
         this.id=id;
     }
-    
 }
 
 //게시판 클래스
@@ -61,19 +60,18 @@ export default class Board{
     //id로 게시글 찾기
     private findPostById(id:number):Post|undefined{
         const post=this.posts.find(obj=>obj.id===id);
-        if(post!==undefined) return post;
-        else return undefined;
+        return post
     }
 
 
     //id를 이용해 Post클래스 객체를 찾고 반환하는 함수
     getPostById(id:number):Post|undefined{
         const post = this.findPostById(id);
-        if(post===undefined){
+        if(post){
+            return post;
+        }else{
             console.log("failed to search post data by"+id);
             return undefined;
-        }else{
-            return post;
         }
     }
 
