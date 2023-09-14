@@ -115,55 +115,117 @@ const controller={
 app.get('/board',(req:Request,res:Response)=>{
     const boards=controller.getBoards;
     if(boards!==undefined){
-        res.status(200).
+        res.status(200).json({
+            boardList:boards
+        })
+    }else{
+        res.status(500).json({
+            status:"failed",
+            message:"게시판을 찾을 수 없습니다."
+        })
     }
 
 })
 
 // 게시판 조회
-app.get('/board/:id',(req:Request,res:Request)=>{
+app.get('/board/:id',(req:Request,res:Response)=>{
+    const id =parseInt(req.params.id);
+    const board=controller.getBoard(id);
+    if(board!==undefined){
+        res.status(200).json({
+            name:board.name,
+            id:board.id
+        })
+    }else{
+        res.status(400).json({
+            status:"failed",
+            message:"해당 게시판을 찾을 수 없습니다."
+        })
+    }
 
 })
 
 // 게시판 내 게시글 리스트 조회
-app.get('/board/:id/post',(req:Request,res:Request)=>{
-
+app.get('/board/:id/post',(req:Request,res:Response)=>{
+    const id =parseInt(req.params.id);
+    const board=controller.getBoard(id);
+    const posts=controller.getPosts(id);
+    if(board!==undefined&&posts!==undefined){
+        res.status(200).json({
+            board:{
+                name:board.name,
+                id:board.id
+            },
+            posts:posts
+        })
+    }else{
+        res.status(400)
+    }
 })
 
 // 게시판 내 특정 게시글 조회
-app.get('/board/:id/post/:id',(req:Request,res:Request)=>{
+app.get('/board/:boardId/post/:postId',(req:Request,res:Response)=>{
+    const boardId=parseInt(req.params.boardId);
+    const postId=parseInt(req.params.postId);
+
+    const post=controller.getPost(boardId,postId);
+
+    if(post!==undefined){
+        res.status(200).json({
+            title:post.title,
+            date:post.date,
+            author:post.author,
+            context:post.context,
+            id:post.id
+        })
+    }else{
+        res.status(400)
+    }
 
 })
 
 // 게시판 생성
-app.post('/board',(req:Request,res:Request)=>{
+app.post('/board',(req:Request,res:Response)=>{
+    const boardName=req.body.name
+    if(controller.createBoard(boardName)){
+        res.status(201).json({
+            status:"successed",
+            message:"게시판 생성에 성공했습니다."
+        })
+    }else{
+        res.status(500).json({
+            status:"failed",
+            message:"게시판 생성에 실패했습니다."
+        })
+    }
+
 
 })
 
 // 게시글 생성
-app.post('/board/:id/post',(req:Request,res:Request)=>{
+app.post('/board/:id/post',(req:Request,res:Response)=>{
 
 })
 
 
 // 게시판 수정
-app.put('/board/:id',(req:Request,res:Request)=>{
+app.put('/board/:id',(req:Request,res:Response)=>{
 
 })
 
 // 게시글 수정
-app.put('/board/:id/post/:id',(req:Request,res:Request)=>{
+app.put('/board/:id/post/:id',(req:Request,res:Response)=>{
 
 })
 
 
 // 게시판 삭제
-app.delete('/board/:id',(req:Request,res:Request)=>{
+app.delete('/board/:id',(req:Request,res:Response)=>{
 
 })
 
 // 게시글 삭제
-app.delete('/board/:id/post/:id',(req:Request,res:Request)=>{
+app.delete('/board/:id/post/:id',(req:Request,res:Response)=>{
 
 })
 
