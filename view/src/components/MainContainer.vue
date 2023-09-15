@@ -1,7 +1,7 @@
 <template>
     <div id="contentBox">
-        <BoardList :setBoardId="setBoardId"/>
-        <PostContainer :setPostId="setPostId" :boardId="boardId"/>
+        <BoardList :setBoardId="setBoardId" :setPostId="setPostId"/>
+        <PostContainer :postId="postId" :setPostId="setPostId" :boardId="boardId"/>
     </div>
 </template>
 <script>
@@ -28,12 +28,14 @@ export default {
 
         const setPostId=(id)=>{
             postId.value=id;
+            console.log(postId.value)
         }
 
         return{
             setBoardId,
             setPostId,
-            boardId
+            boardId,
+            postId
         }
 
     },

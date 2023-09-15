@@ -1,5 +1,5 @@
 <template lang="">
-    <div class="listFont" @click="setBoardId(board.id)">{{board.name}}</div>
+    <div class="listFont" @click="handler">{{board.name}}</div>
 </template>
 <script>
 
@@ -9,7 +9,19 @@ export default {
     props:{
         board:Object,
         setBoardId:Function,
+        setPostId:Function
     },
+    data(){
+
+        const handler=()=>{
+            this.setBoardId(this.board.id);
+            this.setPostId(-1);
+        }
+        return{
+            handler
+        }
+    },
+
 
     setup(){
 

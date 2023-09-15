@@ -1,11 +1,17 @@
 <template lang="">
     <div id="postContainer">
-        <!-- <PostElement/> -->
+        <div class="wrapper" v-if="postId===-1">
+            <PostElement v-for="post,index in this.posts.value" :key="index" :post="post" :setPostDetail="setPostDetail" />
+        </div>
+        <div class="wrapper" v-if="postId>-1">
+            <PostDetail :post="postDetail"/>
+        </div>
     </div>
 </template>
 <script>
 import {ref} from 'vue'
-// import PostElement from './PostElement.vue'
+import PostElement from './PostElement.vue'
+import PostDetail from './PostDetail'
 
 export default {
     name:"PostContainer",
@@ -13,11 +19,13 @@ export default {
     props:{
         setPostId:Function,
         boardId:Number,
+        postId:Number
     },
 
     watch:{
         boardId(id){
-            fetch(`http://localhost:3000/board/${id}/post`)
+        
+        fetch(`http://localhost:3000/board/${id}/post`)
         .then(res=>res.json())
         .then(data=>{
             this.posts.value=data.posts
@@ -28,23 +36,43 @@ export default {
 
     data(){
         const posts=ref([])
+        const postDetail=ref({})
+
+
+        const setPostDetail=(post)=>{
+            this.setPostId(post.id)
+            postDetail.value=post;
+        }
 
         return{
-            posts
+            posts,
+            setPostDetail,
+            postDetail
         }
     },
     components:{
-        // PostElement
+        PostElement,
+        PostDetail
     },
 
 }
 </script>
 <style>
     #postContainer{
-        display:flex;
+
         width:70%;
         height:80%;
         border:1px solid black;
+    }
+
+    .wrapper{
+        display:flex;
+        flex-direction:column;
+        justify-content:flex-start;
+        align-items:center;
+
+        width:100%;
+        height:100%;
     }
 
 </style>

@@ -8,6 +8,7 @@ const Board_1 = __importDefault(require("./Board"));
 const cors_1 = __importDefault(require("cors"));
 const app = (0, express_1.default)();
 const port = process.env.PORT || 3000;
+//시간나면 cors 이렇게 말고 다르게 조치해보자
 app.use((0, cors_1.default)());
 app.use(express_1.default.json());
 app.use(express_1.default.urlencoded({ extended: false }));
@@ -231,13 +232,13 @@ app.post('/board/:id/post', (req, res) => {
     if (controller.createPost(id, postForm)) {
         res.status(201).json({
             status: "successed",
-            message: "게시판 생성에 성공했습니다."
+            message: "게시글 생성에 성공했습니다."
         });
     }
     else {
         res.status(500).json({
             status: "failed",
-            message: "게시판 생성에 실패했습니다."
+            message: "게시글 생성에 실패했습니다."
         });
     }
     ;

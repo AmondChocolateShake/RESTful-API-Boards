@@ -1,7 +1,7 @@
 <template>
     <div id="boardList">
         <h3 class="listFont">전체게시판</h3>
-        <BoardElement v-for="board,index in boardList" :key="index" :board="board" :setBoardId="setBoardId"/>
+        <BoardElement v-for="board,index in boardList" :key="index" :board="board" :setBoardId="setBoardId" :setPostId="setPostId"/>
     </div>
 </template>
 
@@ -12,7 +12,8 @@ import {ref,onMounted} from 'vue'
 export default {
     name:"BoardList",
     props:{
-        setBoardId:Function
+        setBoardId:Function,
+        setPostId:Function
     },
 
     setup(){

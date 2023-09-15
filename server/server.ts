@@ -5,7 +5,7 @@ import cors from 'cors';
 const app = express();
 const port = process.env.PORT || 3000;
 
-
+//시간나면 cors 이렇게 말고 다르게 조치해보자
 app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
@@ -267,12 +267,12 @@ app.post('/board/:id/post',(req: Request, res: Response) => {
     if(controller.createPost(id, postForm)){
         res.status(201).json({
             status: "successed",
-            message: "게시판 생성에 성공했습니다."
+            message: "게시글 생성에 성공했습니다."
         })
     }else{
         res.status(500).json({
             status: "failed",
-            message: "게시판 생성에 실패했습니다."
+            message: "게시글 생성에 실패했습니다."
         })
     };
 
