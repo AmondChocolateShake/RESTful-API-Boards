@@ -38,12 +38,21 @@ const testBoard=new Board("테스트",0);
 const controller={
     boardId:1,
     boards:[testBoard],
+
     getBoardId: function() {
         return this.boardId++;
     },
 
     getBoardList: function() {
-        return this.boards;
+        let arr:object[]=[]
+        this.boards.forEach(board=>{
+            arr.push({
+                name:board.name,
+                id:board.id
+            })
+        })
+
+        return arr;
     },
 
     getBoards: function() {
@@ -52,6 +61,7 @@ const controller={
 
     getBoard: function(boardId: number): Board | undefined {
         const board=this.boards.find(obj=>obj.id===boardId);
+    
         return board;
     },
 
@@ -76,6 +86,7 @@ const controller={
         }
     },
 
+
     createPost: function(boardId: number,post: PostIF) {
         const board=this.getBoard(boardId);
         if(board){
@@ -85,6 +96,7 @@ const controller={
             return false;
         }
     },
+
 
     editBoard: function(boardId: number,name: string) {
         const board=this.getBoard(boardId);
@@ -186,7 +198,13 @@ app.get('/board/:id/post',(req: Request,res: Response) => {
     const id= parseInt(req.params.id);
     const board= controller.getBoard(id);
     if(board){
-        res.status(200).json(board);
+        const obj:object={
+            name:board.name,
+            id:board.id,
+            posts:board.posts
+        }
+
+        res.status(200).json(obj);
     }else{
         res.status(404).json({
             status:"failed",

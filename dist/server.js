@@ -27,7 +27,14 @@ const controller = {
         return this.boardId++;
     },
     getBoardList: function () {
-        return this.boards;
+        let arr = [];
+        this.boards.forEach(board => {
+            arr.push({
+                name: board.name,
+                id: board.id
+            });
+        });
+        return arr;
     },
     getBoards: function () {
         return this.boards;
@@ -47,8 +54,13 @@ const controller = {
     },
     createBoard: function (board) {
         const newBoard = new Board_1.default(board, this.getBoardId());
-        this.boards.push(newBoard);
-        return true;
+        if (newBoard) {
+            this.boards.push(newBoard);
+            return true;
+        }
+        else {
+            return false;
+        }
     },
     createPost: function (boardId, post) {
         const board = this.getBoard(boardId);
@@ -155,7 +167,12 @@ app.get('/board/:id/post', (req, res) => {
     const id = parseInt(req.params.id);
     const board = controller.getBoard(id);
     if (board) {
-        res.status(200).json(board);
+        const obj = {
+            name: board.name,
+            id: board.id,
+            posts: board.posts
+        };
+        res.status(200).json(obj);
     }
     else {
         res.status(404).json({
