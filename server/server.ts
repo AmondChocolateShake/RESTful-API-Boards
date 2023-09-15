@@ -49,10 +49,12 @@ const controller={
     getBoards: function() {
         return this.boards;
     },
+
     getBoard: function(boardId: number): Board | undefined {
         const board=this.boards.find(obj=>obj.id===boardId);
         return board;
     },
+
     getPosts: function(boardId: number) {
         const board=this.getBoard(boardId);
         return board?.getPosts();
@@ -66,9 +68,14 @@ const controller={
     
     createBoard: function(board: string): boolean {
         const newBoard=new Board(board,this.getBoardId());
-        this.boards.push(newBoard);
-        return true
+        if(newBoard){
+            this.boards.push(newBoard);
+            return true
+        }else{
+            return false
+        }
     },
+
     createPost: function(boardId: number,post: PostIF) {
         const board=this.getBoard(boardId);
         if(board){
@@ -88,6 +95,7 @@ const controller={
             return false;
         }
     },
+
     editPost: function(boardId: number,postId: number,postForm: PostIF) {
         const board= this.getBoard(boardId);
         if(board){
@@ -177,16 +185,8 @@ app.get('/board/:id',(req: Request,res: Response) => {
 app.get('/board/:id/post',(req: Request,res: Response) => {
     const id= parseInt(req.params.id);
     const board= controller.getBoard(id);
-    const posts= controller.getPosts(id);
-    console.log(posts);
-    if(board&&posts){
-        res.status(200).json({
-            board:{
-                name: board.name,
-                id: board.id
-            },
-            posts: posts
-        })
+    if(board){
+        res.status(200).json(board);
     }else{
         res.status(404).json({
             status:"failed",
@@ -216,7 +216,6 @@ app.get('/board/:boardId/post/:postId', (req: Request, res: Response) => {
             message: "조회에 실패했습니다."
         })
     }
-
 })
 
 // 게시판 생성

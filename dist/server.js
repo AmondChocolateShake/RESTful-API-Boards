@@ -154,16 +154,8 @@ app.get('/board/:id', (req, res) => {
 app.get('/board/:id/post', (req, res) => {
     const id = parseInt(req.params.id);
     const board = controller.getBoard(id);
-    const posts = controller.getPosts(id);
-    console.log(posts);
-    if (board && posts) {
-        res.status(200).json({
-            board: {
-                name: board.name,
-                id: board.id
-            },
-            posts: posts
-        });
+    if (board) {
+        res.status(200).json(board);
     }
     else {
         res.status(404).json({
