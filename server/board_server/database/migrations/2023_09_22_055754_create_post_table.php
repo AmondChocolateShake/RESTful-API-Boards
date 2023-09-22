@@ -11,9 +11,14 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('post', function (Blueprint $table) {
-            $table->id();
-            $table->timestamps();
+        Schema::create('posts', function (Blueprint $table) {
+            $table->string('title');
+            $table->date('created_at');
+            $table->string('author');
+            $table->string('context');
+            $table->increments('id');
+            $table->integer('board_id');
+            $table->foreign('board_id')->references('id')->on('boards');
         });
     }
 

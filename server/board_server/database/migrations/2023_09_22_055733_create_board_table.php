@@ -11,9 +11,9 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('board', function (Blueprint $table) {
-            $table->id();
-            $table->date();
+        Schema::create('boards', function (Blueprint $table) {
+            $table->increments('id');
+            $table->string('name');
         });
     }
 

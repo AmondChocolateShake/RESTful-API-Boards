@@ -164,3 +164,6 @@
 127.0.0.1 - - [22/Sep/2023:13:32:25 +0900] "GET / HTTP/1.1" 502 497 "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/117.0.0.0 Safari/537.36"
 127.0.0.1 - - [22/Sep/2023:13:33:46 +0900] "GET / HTTP/1.1" 502 497 "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/117.0.0.0 Safari/537.36"
 127.0.0.1 - - [22/Sep/2023:13:33:46 +0900] "GET / HTTP/1.1" 502 497 "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/117.0.0.0 Safari/537.36"
+127.0.0.1 - - [22/Sep/2023:13:35:12 +0900] "GET / HTTP/1.1" 200 27551 "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/117.0.0.0 Safari/537.36"
+127.0.0.1 - - [22/Sep/2023:13:35:38 +0900] "GET / HTTP/1.1" 200 27551 "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/117.0.0.0 Safari/537.36"
+127.0.0.1 - - [22/Sep/2023:13:56:46 +0900] "GET / HTTP/1.1" 200 27551 "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/117.0.0.0 Safari/537.36"
