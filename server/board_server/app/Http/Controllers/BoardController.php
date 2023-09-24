@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
+namespace App\Http\BoardController;
 
 use Illuminate\Http\Request;
 use App\Models\Boards;
@@ -12,6 +13,7 @@ class BoardController extends Controller
     public function getAll(){
         $boards=Boards::all();
         return $boards;
+        
     }
 
     public function get($id){

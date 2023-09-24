@@ -1,7 +1,8 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\BoardController;
+// use App\Http\Controllers\BoardController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -16,7 +17,6 @@ use App\Http\Controllers\BoardController;
 Route::get('/', function () {
     return view('welcome');
 });
-Route::get('/board/{id}',[BoardController::class,'get']);
+Route::get('/board/{id}',"BoardController@get");
 Route::get('/board',[BoardController::class,'getAll']);
 Route::post('/board',[BoardController::class,'create']);
-
