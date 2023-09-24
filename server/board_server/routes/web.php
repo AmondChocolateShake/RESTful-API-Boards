@@ -17,6 +17,3 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
-Route::get('/board/{id}',"BoardController@get");
-Route::get('/board',[BoardController::class,'getAll']);
-Route::post('/board',[BoardController::class,'create']);
