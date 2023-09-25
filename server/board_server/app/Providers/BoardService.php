@@ -22,7 +22,16 @@ class BoardService
 
     }
 
+    //provides A specific board by id
     public function getBoard($id){
+        $board = Boards::find($id);
+        
+        if($board){
+            return $board;
+        }else{
+            return false; 
+        }
+
 
     }
 
