@@ -72,10 +72,10 @@ class BoardService
     public function getPost($boardId, $postId) 
     {
         $post= Posts::where('board_id',$boardId)
-                    ->where('id',$postId)
-                    ->first();
+                    -> where('id',$postId)
+                    -> first();
         if($post) {
-            $post->created_at=$this->dateFormatting($post->created_at);
+            $post-> created_at= $this->dateFormatting($post->created_at);
             return $post;
         }else {
             return false;
@@ -114,6 +114,7 @@ class BoardService
         if($newBoard) return true;
         else return false;
     }
+
 
     public function createPost($title,$context,$author)
     {
