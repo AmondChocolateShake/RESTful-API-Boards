@@ -1,6 +1,6 @@
 <template>
     <div class="dropdown">
-      <button @click="toggleDropdown">Toggle Dropdown</button>
+      <button @click.prevent="toggleDropdown">Toggle Dropdown</button>
       <ul v-if="isDropdownOpen" class="dropdown-menu">
         <li @click="selected(board.id)" v-for="board,index in boards" :key="index">{{ board.name }}</li>
       </ul>
