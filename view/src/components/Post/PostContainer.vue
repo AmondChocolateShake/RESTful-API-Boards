@@ -7,7 +7,7 @@
             <PostDetail :post="postDetail"/>
         </div>
         <div class="wrapper" v-if="write">
-            <PostingPage/>
+            <PostingPage :writePost="writePost" :write="write"/>
         </div>
     </div>
 </template>
@@ -25,6 +25,7 @@ export default {
         boardId:Number,
         postId:Number,
         write:Boolean,
+        writePost:Function
     },
 
     watch:{
@@ -48,6 +49,7 @@ export default {
             this.setPostId(post.id)
             postDetail.value=post;
         }
+
 
         return{
             posts,

@@ -9,7 +9,7 @@
         </div>
         <div class="btnBox">
             <DropDownMenu :setBrdId="setBoardIdFormData"/>
-            <button type="submit" class="save">등록</button>
+            <button @click="this.writePost" type="submit" class="save">등록</button>
         </div>
     </form>
 </template>
@@ -25,8 +25,13 @@ export default {
     components:{
         DropDownMenu
     },
+    props:{
+        write:Boolean,
+        writePost:Function
+    },
 
     setup(){
+
         const id=ref(null);
         const formData= ref({
             title: '',
@@ -34,6 +39,8 @@ export default {
             author: '김동주',
             board_id:id
         });
+
+
 
         function handleSubmit(){
             fetch(`http://localhost/api/board/${id.value}/post`,{
@@ -43,8 +50,8 @@ export default {
                 },
                 body: JSON.stringify(formData.value)
             })
-
         }
+
 
         function setBoardIdFormData(boardId){
             id.value=boardId;
@@ -53,7 +60,7 @@ export default {
         return{
             formData,
             handleSubmit,
-            setBoardIdFormData
+            setBoardIdFormData,
 
         }
         

@@ -2,7 +2,7 @@
     <div id="contentBox">
         <button @click="writePost" id="write">글쓰기</button>
         <BoardList :setBoardId="setBoardId" :setPostId="setPostId"/>
-        <PostContainer :write="write" :postId="postId" :setPostId="setPostId" :boardId="boardId"/>
+        <PostContainer :writePost="this.writePost" :write="write" :postId="postId" :setPostId="setPostId" :boardId="boardId"/>
     </div>
 </template>
 <script>
