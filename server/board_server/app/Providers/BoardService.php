@@ -25,7 +25,7 @@ class BoardService
     //provides A specific board by id
     public function getBoard($id){
         $board = Boards::find($id);
-        
+
         if($board){
             return $board;
         }else{
@@ -36,12 +36,21 @@ class BoardService
     }
 
     //this function provides all the posts by board id
-    public function getPostsByBoard($id){
+    public function getPostsByBoardId($id){
+        $posts=Posts::where('board_id',$id)->get();
+        if($posts) return $posts;
 
     }
 
-    public function getPost($boardId,$postId){
-
+    public function getPost($boardId, $postId) {
+        $post= Posts::where('board_id',$boardId)
+                    ->where('id',$postId)
+                    ->first();
+        if($post) {
+            return $post;
+        }else {
+            return false;
+        }
     }
 
 

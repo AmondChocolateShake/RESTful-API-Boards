@@ -26,6 +26,18 @@ class BoardController extends Controller
         
     }
 
+    public function getPost($boardId,$postId){
+        $post=$this->boardService->getPost($boardId,$postId);
+        if($post) return $post;
+
+    }
+
+    public function getPosts($id){
+        $posts=$this->boardService->getPostsByBoardId($id);
+        if($posts) return $posts;
+
+    }
+
     public function create(Request $request){
         
     }
