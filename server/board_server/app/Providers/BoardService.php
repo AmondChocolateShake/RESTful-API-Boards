@@ -116,12 +116,15 @@ class BoardService
     }
 
 
-    public function createPost($title,$context,$author)
+    public function createPost($title,$context,$author,$board_id)
     {
+
         $newPost= Posts::create([
             'title'=>$title,
             'context'=>$context,
-            'author'=>$author
+            'author'=>$author,
+            'board_id'=>$board_id,
+            'created_at'=>now()
         ]);
         if($newPost) return true;
         else return false;

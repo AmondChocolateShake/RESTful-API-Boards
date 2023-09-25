@@ -2,27 +2,49 @@
     <div class="dropdown">
       <button @click="toggleDropdown">Toggle Dropdown</button>
       <ul v-if="isDropdownOpen" class="dropdown-menu">
-        <li></li>
+        <li @click="selected(board.id)" v-for="board,index in boards" :key="index">{{ board.name }}</li>
       </ul>
     </div>
-  </template>
+</template>
   
-  <script>
-  export default {
-    props:{
+<script>
+import { ref } from 'vue';
 
-    },
+export default {
+  props:{
+    setBrdId:Function
+  },
+  setup(props) {
+        const boards=ref([]);
+        const isDropdownOpen=ref(false);
+        
+        function toggleDropdown() {
+            this.isDropdownOpen = !this.isDropdownOpen;
+           
+        }
 
-    data() {
-      return {
-        isDropdownOpen: false
-      };
-    },
-    methods: {
-      toggleDropdown() {
-        this.isDropdownOpen = !this.isDropdownOpen;
+
+        fetch('http://localhost/api/board')
+        .then(res=>res.json())
+        .then(res=>{
+            boards.value=res;
+            console.log(boards);
+        })
+  
+        function selected(id){
+            this.isDropdownOpen=false;
+            props.setBrdId(id);
+            console.log(id);
+        }
+
+      return{
+          isDropdownOpen,
+          toggleDropdown,
+          boards,
+          selected
       }
-    }
+  }
+
   };
   </script>
   
@@ -31,6 +53,7 @@
   .dropdown {
     position: relative;
     display: inline-block;
+    margin-right: 10px;
   }
   
   .dropdown-menu {

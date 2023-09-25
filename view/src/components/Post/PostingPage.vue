@@ -7,8 +7,8 @@
         <div class="context">
             <textarea type="context" v-model="formData.context" name="context" id="" cols="30" rows="10"></textarea>
         </div>
-        <div>
-            <DropDownMenu/>
+        <div class="btnBox">
+            <DropDownMenu :setBrdId="setBoardIdFormData"/>
             <button type="submit" class="save">등록</button>
         </div>
     </form>
@@ -27,18 +27,33 @@ export default {
     },
 
     setup(){
+        const id=ref(null);
         const formData= ref({
             title: '',
             context: '',
-            author: '김동주'
+            author: '김동주',
+            board_id:id
         });
 
         function handleSubmit(){
-            // console.log(formData.title.value);
+            fetch(`http://localhost/api/board/${id.value}/post`,{
+                method: 'POST', // POST 메서드
+                headers: {
+                    'Content-Type': 'application/json' // JSON 형태로 데이터 전송
+                },
+                body: JSON.stringify(formData.value)
+            })
+
         }
+
+        function setBoardIdFormData(boardId){
+            id.value=boardId;
+        }
+
         return{
             formData,
             handleSubmit,
+            setBoardIdFormData
 
         }
         
@@ -48,6 +63,11 @@ export default {
 }
 </script>
 <style>
+    .btnBox{
+        display: flex;
+        justify-content: flex-end;
+    }
+
     .posting{
         display: flex;
         flex-direction: column;
@@ -60,6 +80,12 @@ export default {
     .title{
         display:'flex';
         width: 100%;
+        height: 50px;
+        border-bottom: 1px solid black;
+    }
+
+    .title > input{
+        width:90%;
     }
 
     .context>textarea{
@@ -71,7 +97,7 @@ export default {
 
     .context{
         width: 100%;
-        height:30%;
+        height:70%;
     }
 
     .save{

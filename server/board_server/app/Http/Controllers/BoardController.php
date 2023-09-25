@@ -77,14 +77,15 @@ class BoardController extends Controller
 
     }
 
-    public function createPost($id,Request $request)
+    public function createPost($id, Request $request)
     {
-        $title=$request->input('title');
-        $context=$request->input('context');
-        $author=$request->input('author');
+        $title= $request-> input('title');
+        $context= $request-> input('context');
+        $author= $request-> input('author');
+        $board_id= $request-> input('board_id');
 
-        if($title && $contect && $author){
-            if($this-> boardService-> createPost($title, $context, $author))
+        if($title && $context && $author && $board_id){
+            if($this-> boardService-> createPost($title, $context, $author, $board_id))
             {
                 $message=[
                     'status'=>'successed',
