@@ -1,10 +1,13 @@
 <template lang="">
     <div id="postContainer">
-        <div class="wrapper" v-if="postId===-1">
+        <div class="wrapper" v-if="postId===-1&&!write">
             <PostElement v-for="post,index in this.posts.value" :key="index" :post="post" :setPostDetail="setPostDetail" />
         </div>
-        <div class="wrapper" v-if="postId>-1">
+        <div class="wrapper" v-if="postId>-1&&!write">
             <PostDetail :post="postDetail"/>
+        </div>
+        <div class="wrapper" v-if="write">
+            <PostingPage/>
         </div>
     </div>
 </template>
@@ -12,6 +15,7 @@
 import {ref} from 'vue'
 import PostElement from './PostElement.vue'
 import PostDetail from './PostDetail'
+import PostingPage from './PostingPage.vue'
 
 export default {
     name:"PostContainer",
@@ -19,7 +23,8 @@ export default {
     props:{
         setPostId:Function,
         boardId:Number,
-        postId:Number
+        postId:Number,
+        write:Boolean,
     },
 
     watch:{
@@ -52,7 +57,8 @@ export default {
     },
     components:{
         PostElement,
-        PostDetail
+        PostDetail,
+        PostingPage
     },
 
 }

@@ -3,6 +3,7 @@
 namespace App\Providers;
 use App\Models\Boards;
 use App\Models\Posts;
+use Carbon\Carbon;
 
 class BoardService
 {
@@ -55,7 +56,16 @@ class BoardService
     public function getPosts($boardId) 
     {
         $posts= Posts::where('board_id',$boardId)-> get();
+
         return $posts;
+    }
+
+    //날짜 포맷 바꾸기
+    protected function dateFormatting($date){
+        $parseDate=Carbon::parse($date);
+        $result=$parseDate->toDateString();
+        return $result;
+
     }
 
     //provides one post
@@ -65,6 +75,7 @@ class BoardService
                     ->where('id',$postId)
                     ->first();
         if($post) {
+            $post->created_at=$this->dateFormatting($post->created_at);
             return $post;
         }else {
             return false;

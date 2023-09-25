@@ -2,7 +2,7 @@
     <div id="post" @click="setPostDetail(post)">
         <div>작성자 : {{post.author}}</div>
         <div>{{post.title}}</div>
-        <div>{{post.date}}</div>
+        <div>{{post.created_at}}</div>
     </div>
 </template>
 <script>

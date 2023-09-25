@@ -1,8 +1,8 @@
 <template>
     <div id="contentBox">
-        <button id="write">글쓰기</button>
+        <button @click="writePost" id="write">글쓰기</button>
         <BoardList :setBoardId="setBoardId" :setPostId="setPostId"/>
-        <PostContainer :postId="postId" :setPostId="setPostId" :boardId="boardId"/>
+        <PostContainer :write="write" :postId="postId" :setPostId="setPostId" :boardId="boardId"/>
     </div>
 </template>
 <script>
@@ -21,22 +21,34 @@ export default {
     setup(){
         const boardId=ref(-1);
         const postId=ref(-1);
+        const write=ref(false);
 
         const setBoardId=(id)=>{
             boardId.value=id;
+            write.value=false;
             console.log(boardId.value)
+            
         };
 
         const setPostId=(id)=>{
             postId.value=id;
+            write.value=false;
             console.log(postId.value)
         }
+
+        const writePost=()=>{
+            write.value=!write.value;
+            console.log(write.value);
+        }
+
 
         return{
             setBoardId,
             setPostId,
             boardId,
-            postId
+            postId,
+            writePost,
+            write
         }
 
     },
