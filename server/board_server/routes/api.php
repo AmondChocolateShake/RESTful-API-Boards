@@ -21,10 +21,12 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 Route::prefix('board')->group(function(){
     Route::get('/',[BoardController::class,'getAll']);
-    Route::get('/{id}',[BoardController::class,'getBoardWithPosts']);
+    Route::get('/{id}',[BoardController::class,'getBoard']);
     Route::get('/{boardId}/post/{postId}',[BoardController::class,'getPost']);
     Route::get('/{id}/post',[BoardController::class,'getPosts']);
-    Route::post('/',[BoardController::class,'create']);
+    Route::post('/',[BoardController::class,'createBoard']);
+    Route::post('/{id}/post',[BoardController::class,'createPost']);
+    
 });
 
 

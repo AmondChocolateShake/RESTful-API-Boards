@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Boards extends Model
 {
     use HasFactory;
+    public $timestamps = false;
     protected $table='boards';
     protected $fillable=['name'];
 }

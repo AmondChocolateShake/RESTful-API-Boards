@@ -9,21 +9,26 @@ class BoardService
 
 
 
-    //this function provides all of boards
-    public function getBoards(){
+    //this function provides all of boards wih posts whihc are involved in each board
+    public function getAll()
+    {
         $boards=Boards::all();
+        $result=[];
+        foreach($boards as $board){
+            $posts=$this->getPosts($board->id);
+            $board->posts=$posts;
 
-        if($boards){
-            return $boards;
-        }else{
-            return false; 
+            $result[]=$board;       
         }
+
+        return $result;
 
 
     }
 
     //provides A specific board by id
-    public function getBoard($id){
+    public function getBoard($id)
+    {
         $board = Boards::find($id);
 
         if($board){
@@ -31,18 +36,31 @@ class BoardService
         }else{
             return false; 
         }
-
-
     }
+
 
     //this function provides all the posts by board id
-    public function getPostsByBoardId($id){
-        $posts=Posts::where('board_id',$id)->get();
-        if($posts) return $posts;
+    public function getPostsByBoardId($id)
+    {
+        $board= Boards::find($id);
+        $posts= Posts::where('board_id', $id)->get();
+        if($posts && $board)
+        {
+            $board->posts= $posts;
+            return $board;
 
+        }
     }
 
-    public function getPost($boardId, $postId) {
+    public function getPosts($boardId) 
+    {
+        $posts= Posts::where('board_id',$boardId)-> get();
+        return $posts;
+    }
+
+    //provides one post
+    public function getPost($boardId, $postId) 
+    {
         $post= Posts::where('board_id',$boardId)
                     ->where('id',$postId)
                     ->first();
@@ -54,21 +72,51 @@ class BoardService
     }
 
 
-    public function deleteBoard($id){
-
+    public function deleteBoard($id)
+    {
+        $board= Boards::find($id);
+        if($board){ 
+            $board->delete();
+            return true;
+        }
+        else return false;
     }
 
-    public function deletePost($boardId,$postId){
 
+    public function deletePost($boardId, $postId)
+    {
+        $post= $this -> getPost($boardId, $postId);
+        if ($post) {
+            $post-> delete();
+            return true;
+        }else {
+            return false;
+        }
     }
 
 
-    public function createBoard(){
-
+    public function createBoard($name)
+    {
+        $newBoard= Boards::create([
+            'name'=>$name
+        ]);
+        if($newBoard) return true;
+        else return false;
     }
 
-    public function createPost(){
-
+    public function createPost($title,$context,$author)
+    {
+        $newPost= Posts::create([
+            'title'=>$title,
+            'context'=>$context,
+            'author'=>$author
+        ]);
+        if($newPost) return true;
+        else return false;
     }
+
+
+
+
 
 }
