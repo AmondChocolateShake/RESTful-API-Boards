@@ -1,5 +1,6 @@
 <template>
     <div id="contentBox">
+        <button id="write">글쓰기</button>
         <BoardList :setBoardId="setBoardId" :setPostId="setPostId"/>
         <PostContainer :postId="postId" :setPostId="setPostId" :boardId="boardId"/>
     </div>
@@ -49,28 +50,23 @@ export default {
 }
 </script>
 <style>
+    #write{
+        position: absolute;
+        top:10px;
+        right: 20px;
 
+        width:70px;
+        height:30px;
+    }
 
     #contentBox{
+        position: relative;
         display: flex;
         justify-content: space-around;
         align-items: center;
 
         width:100%;
         height:90%;
-    }
-
-    .writeBtn{
-        display: flex;
-        
-        align-self: flex-end;
-
-
-        width:100px;
-        height: 30px;
-
-        background-color: cadetblue;
-        border: 1px solid black;
     }
 
 

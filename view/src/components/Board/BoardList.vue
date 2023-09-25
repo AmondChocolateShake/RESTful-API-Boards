@@ -20,7 +20,7 @@ export default {
         let boardList=ref([{}])
         
         onMounted(()=>{
-            fetch('http://localhost:3000/board',{
+            fetch('http://localhost/api/board',{
                 method:'GET',
                 headers:{
                     'Content-Type':'application/json'
@@ -28,7 +28,7 @@ export default {
             })
             .then(res=>res.json())
             .then(datas=>{
-                boardList.value=datas.boardList;
+                boardList.value=datas;
             })
         })
     

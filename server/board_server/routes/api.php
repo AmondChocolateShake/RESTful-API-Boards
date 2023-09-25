@@ -26,7 +26,8 @@ Route::prefix('board')->group(function(){
     Route::get('/{id}/post',[BoardController::class,'getPosts']);
     Route::post('/',[BoardController::class,'createBoard']);
     Route::post('/{id}/post',[BoardController::class,'createPost']);
-    
+    Route::delete('/{id}',[BoardController::class,'deleteBoard']);
+    Route::delete('/{boardId}/post/{postId}',[BoardController::class,'deletePost']);
 });
 
 

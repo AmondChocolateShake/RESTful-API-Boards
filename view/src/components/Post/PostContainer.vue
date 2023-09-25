@@ -25,7 +25,7 @@ export default {
     watch:{
         boardId(id){
         
-        fetch(`http://localhost:3000/board/${id}/post`)
+        fetch(`http://localhost/api/board/${id}/post`)
         .then(res=>res.json())
         .then(data=>{
             this.posts.value=data.posts
