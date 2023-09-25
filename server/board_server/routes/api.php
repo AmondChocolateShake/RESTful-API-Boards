@@ -20,8 +20,8 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 Route::prefix('board')->group(function(){
-    Route::get('/{id}',[BoardController::class,'get']);
     Route::get('/',[BoardController::class,'getAll']);
+    Route::get('/{id}',[BoardController::class,'getBoardWithPosts']);
     Route::post('/',[BoardController::class,'create']);
 });
 
