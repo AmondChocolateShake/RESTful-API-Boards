@@ -2,37 +2,36 @@ import { createStore } from "vuex";
 
 export default createStore({
     state: {
-        title:'',
-        context:'',
-        author:'',
-        board_id:0,
-
-        
+        title: '',
+        context: '',
+        author: '',
+        board_id: 0,
     },
     mutations: {
-        setTitle(title){
-            state.title=title;
+        setTitle(title) {
+            state.title= title;
         },
-        setContext(context){
-            state.context=context;
+        setContext(context) {
+            state.context= context;
         },
-        setAuthor(author){
-            state.author=author;
+        setAuthor(author) {
+            state.author= author;
         },
-        setBoardId(id){
-            state.board_id=id;
+        setBoardId(id) {
+            state.board_id= id;
         },
     },
     actions: {
         
     },
     getters: {
-        getFormData:state=>{
+        getFormData: state=>{
             const formData={
                 title:state.title,
                 context:state.context,
                 board_id:state.board_id,
-            }
+            };
+            return formData;
         }
     }
 })
