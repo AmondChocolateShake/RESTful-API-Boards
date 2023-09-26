@@ -1,6 +1,7 @@
 <template>
     <div id="postDetail">
         <PostTitle :title="post.title" :author="post.author" :date="post.date"/>
+        <button>삭제</button>
         <p>{{ post.context }}</p>
     </div>
 </template>
@@ -27,6 +28,11 @@ export default {
         
         width:100%;
         height:100%;
+    }
+
+    #postDetail>button{
+        width: 70px;
+        
     }
 
 </style>
