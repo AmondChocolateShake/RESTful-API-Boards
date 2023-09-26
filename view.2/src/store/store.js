@@ -55,7 +55,11 @@ export default createStore({
 
     },
     actions: {
-        
+        GETBoardList(){
+            fetch('http://localhost/board')
+            .then(console.log('호출쓰'))
+        },
+
     },
     getters: {
         getFormData: state=>{

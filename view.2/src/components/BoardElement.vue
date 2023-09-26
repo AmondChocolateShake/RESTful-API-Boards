@@ -1,14 +1,25 @@
 <template>
     <div id="board">
-        <h3>{{ this.name }}</h3>
+        <h3>{{boardName}}</h3>
     </div>
 </template>
 <script>
+
 export default {
     name:'BoardElement',
     props:{
-        name:String
+        boardName:String,
+        id:Number
+    },
+    setup(props){
+        console.log(props.boardName);
+
+        return{
+
+        }
     }
+
+
 }
 </script>
 <style>
@@ -20,5 +31,7 @@ export default {
         width: 500px;
         height: 100px;
 
+        border-top:1px solid black ;
+        border-bottom:1px solid black ;
     }
 </style>
