@@ -1,6 +1,6 @@
 <template lang="">
     <div>
-        asdasd
+        뷰 연습
     </div>
 </template>
 <script>

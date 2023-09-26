@@ -236,3 +236,9 @@
 2023/09/25 17:00:56 [notice] 31008#21488: signal process started
 2023/09/26 13:59:20 [notice] 34852#13048: signal process started
 2023/09/26 13:59:27 [notice] 17272#22428: signal process started
+2023/09/26 14:11:34 [notice] 6628#11880: signal process started
+2023/09/26 14:11:34 [error] 6628#11880: CreateFile() "C:\work\project\business\board\server\nginx-1.24.0/logs/nginx.pid" failed (2: The system cannot find the file specified)
+2023/09/26 14:11:38 [notice] 33784#10876: signal process started
+2023/09/26 14:11:38 [error] 33784#10876: CreateFile() "C:\work\project\business\board\server\nginx-1.24.0/logs/nginx.pid" failed (2: The system cannot find the file specified)
+2023/09/26 14:12:14 [notice] 31064#21944: signal process started
+2023/09/26 14:12:14 [error] 31064#21944: CreateFile() "C:\work\project\business\board\server\nginx-1.24.0/logs/nginx.pid" failed (2: The system cannot find the file specified)

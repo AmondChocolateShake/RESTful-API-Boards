@@ -1,6 +1,8 @@
 <template lang="">
     <div id="boardContainer">
-        <BoardElement :id="1" :boardName="'hello'"/>
+        <BoardElement :id="1" :boardName="'자유게시판'"/>
+        <BoardElement :id="2" :boardName="'중고게시판'"/>
+        <BoardElement :id="3" :boardName="'음악게시판'"/>
         
         <!-- {{boards}} -->
     </div>
@@ -11,17 +13,18 @@ import BoardElement from './BoardElement.vue';
 import { useStore } from 'vuex';
 
 
+
 export default {
-    name:'BoardListView',
     components:{
         BoardElement
     },
-
     setup(){
         const store = useStore();
-        store.dispatch('GETBoardList');
+        
+
+
         return{
-            // boards
+            store
         }
 
     },
@@ -35,7 +38,7 @@ export default {
         align-items: center;
         align-self: center;
 
-        width: 100vw;
+        width: 90%;
         height: 500px;
         overflow: auto;
     }

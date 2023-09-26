@@ -1,6 +1,8 @@
 <template>
     <div id="board">
-        <h3>{{boardName}}</h3>
+        <router-link to="/posts">
+            <h3>{{boardName}}</h3>
+        </router-link>
     </div>
 </template>
 <script>
