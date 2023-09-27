@@ -58,7 +58,6 @@ export default createStore({
                 .then(data=>result=data)
             }else{
                 fetch(url,{
-                    method:method,
                     headers:{
                         "Content-Type":"application/json"
                     },
@@ -75,7 +74,8 @@ export default createStore({
 
         getBoardList: state => state.boardList,
         getPostList: state => state.postList,
-
+        getBoardId: state => state.selected_board_id,
+        getPostId: state => state.selected_post_id,
     }
 })
 

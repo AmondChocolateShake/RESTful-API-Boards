@@ -1,5 +1,5 @@
 <template>
-    <router-link to="postDetail">
+    <router-link to="postDetail" @click="clickHandler">
         <div class="post">
             <div>{{ author }}</div>
             <div>{{ title }}</div>
@@ -8,8 +8,12 @@
     </router-link>
 </template>
 <script>
+
+import { useStore } from 'vuex';
+
 export default {
     
+
     props:{
         author:String,
         title:String,
@@ -17,10 +21,20 @@ export default {
         id:Number
     },
 
-    setup(){
+    setup(props){
+        const store=useStore();
 
+        const clickHandler = () => {
+            store.commit('setPostId',props.id);
 
+        }
+
+        return{
+            clickHandler
+        }
     }
+
+    
 
 }
 </script>

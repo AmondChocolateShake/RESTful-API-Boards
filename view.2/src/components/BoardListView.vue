@@ -1,12 +1,11 @@
 <template lang="">
     <div id="boardContainer">
-        <BoardElement v-for="board, index in boards" :key="index" :id="board.id" :boardName="board.name"/>
+        <BoardElement v-for="board, index in boardList" :key="index" :id="board.id" :boardName="board.name"/>
     </div>
 </template>
 <script>
 import {ref} from 'vue'
 import BoardElement from './BoardElement.vue';
-import { useStore } from 'vuex';
 
 
 
@@ -15,17 +14,17 @@ export default {
         BoardElement
     },
     setup(){
-        const store = useStore();
-        store.dispatch('GETBoardList');
-        
-        const boards=ref(store.getters.getBoardList);
-        
+        const boardList = ref([]);
+        fetch('http://localhost/api/board')
+        .then(response => response.json())
+        .then(data => {
+            boardList.value = data;
+        })
 
-        return{
-            boards
+        return {
+            boardList
         }
-
-    },
+    }
 }
 </script>
 <style>

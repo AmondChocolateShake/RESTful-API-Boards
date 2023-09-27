@@ -1,13 +1,12 @@
 <template>
     <div class="postContainer">
-        <PostElement :author="'aaa'" :title="'ddd'" :date="'2014-05-23'"/>
-        <PostElement :author="'aaa'" :title="'ddd'" :date="'2014-05-23'"/>
-        <PostElement :author="'aaa'" :title="'ddd'" :date="'2014-05-23'"/>
+        <PostElement v-for="post, index in postList" :key= "index" :author= "post.author" :title= "post.title" :date="post.created_at" :id="post.id"/>
     </div>
 </template>
 <script>
 import { useStore } from 'vuex';
 import PostElement from './PostElement.vue';
+import { ref } from 'vue';
 
 export default {
     components:{
@@ -15,13 +14,18 @@ export default {
     },
 
     setup(){
-        const store=useStore();
-        store.dispatch('GETPostList');
-        // const postList=store.getters.getPostList();
-        store
+        const store= useStore()
+        const postList= ref();
+        const boardId= ref(store.getters.getBoardId);
+        fetch('http://localhost/api/board/' + boardId.value + '/post')
+        .then(response => response.json())
+        .then(data => {
+            postList.value= data.posts;
+        })
+        
 
         return{
-            // postList
+            postList
         }
 
 
