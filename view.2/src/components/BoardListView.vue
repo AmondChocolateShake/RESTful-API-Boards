@@ -1,14 +1,10 @@
 <template lang="">
     <div id="boardContainer">
-        <BoardElement :id="1" :boardName="'자유게시판'"/>
-        <BoardElement :id="2" :boardName="'중고게시판'"/>
-        <BoardElement :id="3" :boardName="'음악게시판'"/>
-        
-        <!-- {{boards}} -->
+        <BoardElement v-for="board, index in boards" :key="index" :id="board.id" :boardName="board.name"/>
     </div>
 </template>
 <script>
-// import {ref} from 'vue'
+import {ref} from 'vue'
 import BoardElement from './BoardElement.vue';
 import { useStore } from 'vuex';
 
@@ -20,11 +16,13 @@ export default {
     },
     setup(){
         const store = useStore();
+        store.dispatch('GETBoardList');
+        
+        const boards=ref(store.getters.getBoardList);
         
 
-
         return{
-            store
+            boards
         }
 
     },

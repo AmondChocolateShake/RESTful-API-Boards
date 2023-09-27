@@ -1,11 +1,13 @@
 <template>
     <div id="board">
-        <router-link to="/posts">
+        <router-link to="/posts" @click="clickHandler">
             <h3>{{boardName}}</h3>
         </router-link>
     </div>
 </template>
 <script>
+import { useStore } from 'vuex';
+
 
 export default {
     name:'BoardElement',
@@ -14,10 +16,14 @@ export default {
         id:Number
     },
     setup(props){
-        console.log(props.boardName);
+        
+        const store=useStore();
+        const clickHandler=()=>{
+            store.commit('setBoardId',props.id);
+        }
 
         return{
-
+            clickHandler
         }
     }
 

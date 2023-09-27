@@ -6,6 +6,7 @@
     </div>
 </template>
 <script>
+import { useStore } from 'vuex';
 import PostElement from './PostElement.vue';
 
 export default {
@@ -14,6 +15,15 @@ export default {
     },
 
     setup(){
+        const store=useStore();
+        store.dispatch('GETPostList');
+        // const postList=store.getters.getPostList();
+        store
+
+        return{
+            // postList
+        }
+
 
 
     }
